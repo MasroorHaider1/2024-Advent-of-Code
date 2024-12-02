@@ -29,7 +29,6 @@ public class Day1 {
                 LeftList.add(numberLeft);
                 RightList.add(numberRight);
         }
-        return -1;
 
         //convert to int
         for( int i=0; i < LeftList.size(); i++){
