@@ -16,6 +16,11 @@ public class Day1 {
         String numberRight="";
         ArrayList<String> LeftList=new ArrayList<>();
         ArrayList<String> RightList=new ArrayList<>();
+        ArrayList<Integer> LeftIntList=new ArrayList<>();
+        ArrayList<Integer> RightIntList=new ArrayList<>();
+
+
+        //put the data NOT CONVERTED INTO EACH DATA LIST
         for (int i = 0; i < fileData.size(); i++) {
                 String numberUnsorted =fileData.get(i);
                 String [] splitNumberUnsorted=numberUnsorted.split("   ");
@@ -25,6 +30,19 @@ public class Day1 {
                 RightList.add(numberRight);
         }
         return -1;
+
+        //convert to int
+        for( int i=0; i < LeftList.size(); i++){
+            int Leftnumber = Integer.parseInt(LeftList.get(i));
+            int Rightnumber= Integer.parseInt(RightList.get(i));
+            LeftIntList.add(Leftnumber);
+            RightIntList.add(Rightnumber);
+
+        }
+
+
+        //sort each list
+
 
 
 
