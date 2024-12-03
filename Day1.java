@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Day1 {
@@ -12,40 +14,42 @@ public class Day1 {
     }
 
     public static int getAnswer(ArrayList<String> fileData) {
-        String numberLeft="";
-        String numberRight="";
-        ArrayList<String> LeftList=new ArrayList<>();
-        ArrayList<String> RightList=new ArrayList<>();
-        ArrayList<Integer> LeftIntList=new ArrayList<>();
-        ArrayList<Integer> RightIntList=new ArrayList<>();
+        String numberLeft = "";
+        String numberRight = "";
+        ArrayList<String> LeftList = new ArrayList<>();
+        ArrayList<String> RightList = new ArrayList<>();
+        ArrayList<Integer> LeftIntList = new ArrayList<>();
+        ArrayList<Integer> RightIntList = new ArrayList<>();
 
-
-        //put the data NOT CONVERTED INTO EACH DATA LIST
+        // Put the data NOT CONVERTED INTO EACH DATA LIST
         for (int i = 0; i < fileData.size(); i++) {
-                String numberUnsorted =fileData.get(i);
-                String [] splitNumberUnsorted=numberUnsorted.split("   ");
-                numberLeft=splitNumberUnsorted[0];
-                numberRight=splitNumberUnsorted[1];
-                LeftList.add(numberLeft);
-                RightList.add(numberRight);
+            String numberUnsorted = fileData.get(i);
+            String[] splitNumberUnsorted = numberUnsorted.split("   ");
+            numberLeft = splitNumberUnsorted[0];
+            numberRight = splitNumberUnsorted[1];
+            LeftList.add(numberLeft);
+            RightList.add(numberRight);
         }
 
-        //convert to int
-        for( int i=0; i < LeftList.size(); i++){
+        // Convert to int
+        for (int i = 0; i < LeftList.size(); i++) {
             int Leftnumber = Integer.parseInt(LeftList.get(i));
-            int Rightnumber= Integer.parseInt(RightList.get(i));
+            int Rightnumber = Integer.parseInt(RightList.get(i));
             LeftIntList.add(Leftnumber);
             RightIntList.add(Rightnumber);
-
         }
 
+        // Sort each list, do not use     Arrays.sort(arr);, thats for Arrays, use Collections for Array lists
+        Collections.sort(LeftIntList);
+        Collections.sort(RightIntList);
 
-        //sort each list
+        // Calculate total of absolute differences
+        int total = 0;
+        for (int i = 0; i < LeftIntList.size(); i++) {
+            total += Math.abs(LeftIntList.get(i) - RightIntList.get(i));
+        }
 
-
-
-
-
+        return total;
     }
 
 
