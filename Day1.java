@@ -17,12 +17,17 @@ public class Day1 {
         ArrayList<String> RightList = new ArrayList<>();
         ArrayList<Integer> LeftIntList = new ArrayList<>();
         ArrayList<Integer> RightIntList = new ArrayList<>();
+        String numberLeft = "";
+        String numberRight = "";
 
         // Put the data NOT CONVERTED INTO EACH DATA LIST
-        for (String numberUnsorted : fileData) {
-            String[] splitNumberUnsorted = numberUnsorted.split("   ");
-            LeftList.add(splitNumberUnsorted[0]);
-            RightList.add(splitNumberUnsorted[1]);
+        for (int i = 0; i < fileData.size(); i++) {
+            String stringNumberUnsorted = fileData.get(i);
+            String[] stringSplitNumberUnsorted = stringNumberUnsorted.split("   ");
+            numberLeft = stringSplitNumberUnsorted[0];
+            numberRight = stringSplitNumberUnsorted[1];
+            LeftList.add(numberLeft);
+            RightList.add(numberRight);
         }
 
         // Convert to int
@@ -61,9 +66,9 @@ public class Day1 {
             //resets after this whole thing is done, and go on to the second num in left list
         }
 
-        // Return results as a single string
-        return "Answer for part 1 (absolute differences): " + totalPart1 +
-                "\nAnswer for part 2 (similarity score): " + similarityTotal;
+        // Return results 
+        return "Answer for part 1: " + totalPart1 +
+                "\nAnswer for part 2 : " + similarityTotal;
     }
 
 
