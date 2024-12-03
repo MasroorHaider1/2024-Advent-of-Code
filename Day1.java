@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -13,22 +12,17 @@ public class Day1 {
 
     }
 
-    public static int getAnswer(ArrayList<String> fileData) {
-        String numberLeft = "";
-        String numberRight = "";
+    public static String getAnswer(ArrayList<String> fileData) {
         ArrayList<String> LeftList = new ArrayList<>();
         ArrayList<String> RightList = new ArrayList<>();
         ArrayList<Integer> LeftIntList = new ArrayList<>();
         ArrayList<Integer> RightIntList = new ArrayList<>();
 
         // Put the data NOT CONVERTED INTO EACH DATA LIST
-        for (int i = 0; i < fileData.size(); i++) {
-            String numberUnsorted = fileData.get(i);
+        for (String numberUnsorted : fileData) {
             String[] splitNumberUnsorted = numberUnsorted.split("   ");
-            numberLeft = splitNumberUnsorted[0];
-            numberRight = splitNumberUnsorted[1];
-            LeftList.add(numberLeft);
-            RightList.add(numberRight);
+            LeftList.add(splitNumberUnsorted[0]);
+            RightList.add(splitNumberUnsorted[1]);
         }
 
         // Convert to int
@@ -39,18 +33,45 @@ public class Day1 {
             RightIntList.add(Rightnumber);
         }
 
-        // Sort each list, do not use     Arrays.sort(arr);, thats for Arrays, use Collections for Array lists
+        // Sort each list
         Collections.sort(LeftIntList);
         Collections.sort(RightIntList);
 
-        // Calculate total of absolute differences
-        int total = 0;
+        // Part 1
+        int totalPart1 = 0;
         for (int i = 0; i < LeftIntList.size(); i++) {
-            total += Math.abs(LeftIntList.get(i) - RightIntList.get(i));
+            totalPart1 += Math.abs(LeftIntList.get(i) - RightIntList.get(i));
         }
 
-        return total;
+        // Part 2
+        int similarityTotal = 0;
+
+        //for each left num in the left int list
+        for (int leftNum : LeftIntList) {
+            //check for how many times for each left int
+            int timesForLeftNum = 0;
+            //go through every time it happens in right num
+            for (int rightNum : RightIntList) {
+                //if it equals then do plus 1
+                if (leftNum == rightNum) {
+                    timesForLeftNum++;
+                }
+            }
+            similarityTotal += leftNum * timesForLeftNum;
+            //resets after this whole thing is done, and go on to the second num in left list
+        }
+
+        // Return results as a single string
+        return "Answer for part 1 (absolute differences): " + totalPart1 +
+                "\nAnswer for part 2 (similarity score): " + similarityTotal;
     }
+
+
+
+
+
+
+
 
 
 
