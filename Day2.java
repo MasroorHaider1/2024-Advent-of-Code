@@ -11,8 +11,9 @@ public class Day2 {
 
     }
 
-    public static Integer getAnswer(ArrayList<String> fileData) {
+    public static String getAnswer(ArrayList<String> fileData) {
         int safe = 0;
+        int safe2=0;
 
         //for each line of filedata, we need to convert that to an integer list
         for (String line : fileData) {
@@ -33,12 +34,30 @@ public class Day2 {
                 safe++;
             }
 
+
+            if (isSafe2(temporaryLineList)){
+                safe2++;
+            }
+
+
+            //use isSafe2 right under here
+
         }
 
 
 
+
+
+
+
+
         //part 1
-        return safe;
+        return "Part 1 answer: " + safe + ", Part 2 answer: " + safe2;
+
+
+
+
+
 
 
     }
@@ -79,6 +98,65 @@ public class Day2 {
         //return true only if  all increasing or all decreasing
         return isIncreasing || isDecreasing;
     }
+
+    //USED MR DAS SOLUTION AS INSPIRATIOn, BUT I DONT LIKE IT, I WANT TO TRY THE OTHER WAY!!!!
+    //for each line list(thats all numbers now per row), we go thru entire length of list, and delete each place.
+
+//    public static boolean isSafe2(ArrayList<Integer> temporaryLineList) {
+//        if (isSafe(temporaryLineList)) {
+//            return true;
+//        }
+//
+//        for (int i = 0; i < temporaryLineList.size(); i++) {
+//            ArrayList<Integer> modifiedList = new ArrayList<>(temporaryLineList);
+//            modifiedList.remove(i);
+//            if (isSafe(modifiedList)) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+
+
+    public static boolean isSafe2(ArrayList<Integer> temporaryLineList) {
+        boolean isIncreasing = true;
+        boolean isDecreasing = true;
+        int mistakesAllowed = 1;
+
+        for (int i = 0; i < temporaryLineList.size() - 1; i++) {
+            int diff = temporaryLineList.get(i + 1) - temporaryLineList.get(i);
+
+            if (Math.abs(diff) < 1 || Math.abs(diff) > 3) {
+                //one mistake is allowed or else it is false immediatly
+                if (mistakesAllowed <= 0) {
+                    return false;
+                } else {
+                    mistakesAllowed--;
+                }
+            }
+
+            if (diff > 0) {
+                isDecreasing = false;
+            }
+
+            if (diff < 0) {
+                isIncreasing = false;
+            }
+
+            if (!isIncreasing && !isDecreasing) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
+
+
 
 
 
