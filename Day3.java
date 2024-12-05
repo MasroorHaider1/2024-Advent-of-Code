@@ -20,32 +20,52 @@ public class Day3 {
 
 
 
-    public static String getAnswer1(ArrayList<String> fileData) {
-        ArrayList<String> allMatchesFound = new ArrayList<String>();
+    public static Integer getAnswer1(ArrayList<String> fileData) {
+        // Combine all data from arraylist into single string for the "for"loop
         String fileDataInAString = "";
         for (String line : fileData) {
-            fileDataInAString += line;
+            fileDataInAString += line; // Combine all lines into a string to use .append
         }
 
-        // the \\ escapes the argument?
-        String goodPart= "mul\\([0-999],[0,999]\\)";
+        // store all matches to collect specific nums through a for loop
+        ArrayList<String> matches = new ArrayList<>();
+
+        // PATTERN NEEDED   USED MR DAS SOLITION, THINK THIS SPECIFIED FROM 1-3 DIGIT NUMS
+        String goodPart = "mul\\(\\d{1,3},\\d{1,3}\\)";
         Matcher m = Pattern.compile(goodPart).matcher(fileDataInAString);
 
+        //copy whatever example gave
         while (m.find()) {
-            allMatchesFound.add(m.group());
+            matches.add(m.group()); // Add all matches to the list
         }
 
-        for(int i=0;i<allMatchesFound.size();i++){
-            System.out.println();
+        //total from all good matche
+        int totalSum = 0;
+
+        // Loop through the matches to get the nums
+        for (String match : matches) {
+            //get the numbers
+            int startOfGoodPart = match.indexOf('(') + 1; // after '('
+            int endOfGoodPart = match.indexOf(')');       // where  ')' is
+            String numbers = match.substring(startOfGoodPart, endOfGoodPart); // get the num,num2 THIS IS A STRING, USED YESTERDAYS
+
+            //this string still has , so split and make into ints.
+            String[] parts = numbers.split(",");
+            int firstNum = Integer.parseInt(parts[0]); // First number
+            int secondNum = Integer.parseInt(parts[1]); // Second number
+
+            // Multiply the numbers and add to the total
+            totalSum += firstNum * secondNum;
         }
 
-
-        }
-
-
+        return totalSum;
+    }
 
 
-        public static ArrayList<String> getFileData(String fileName) {
+
+
+
+    public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<String>();
         try {
             File f = new File(fileName);
