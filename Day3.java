@@ -98,7 +98,7 @@ public class Day3 {
 
                 int startOfGoodPart = match.indexOf('(') + 1; // After '('
                 int endOfGoodPart = match.indexOf(')');       // Before ')'
-                String numbers = match.substring(startOfGoodPart, endOfGoodPart); // Get the "x,y"
+                String numbers = match.substring(startOfGoodPart, endOfGoodPart);
 
                 //USE METHOD FROM PART 1
                 String[] parts = numbers.split(",");
