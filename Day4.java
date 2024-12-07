@@ -42,7 +42,7 @@ public class Day4 {
         for (int row = 0; row < allCharactersSeperated.length; row++) {
             //go down each column spot per row
             for (int column = 0; column < allCharactersSeperated[0].length; column++) {
-               //I HAVE TO CHECK UP,DOWN,LEFT,RIGHT,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT
+                //I HAVE TO CHECK UP,DOWN,LEFT,RIGHT,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT
 
 
 
@@ -111,6 +111,60 @@ public class Day4 {
                 }
 
 
+                // CHECK UP-RIGHT
+                try {
+                    String firstLetter = allCharactersSeperated[row][column];
+                    String secondLetter = allCharactersSeperated[row - 1][column + 1];
+                    String thirdLetter = allCharactersSeperated[row - 2][column + 2];
+                    String fourthLetter = allCharactersSeperated[row - 3][column + 3];
+                    String word = firstLetter + secondLetter + thirdLetter + fourthLetter;
+                    if (word.equals("XMAS"))
+                        goodCount++;
+                } catch (Exception e) {
+                    goodCount += 0;
+                }
+
+                // CHECK DOWN-RIGHT
+                try {
+                    String firstLetter = allCharactersSeperated[row][column];
+                    String secondLetter = allCharactersSeperated[row + 1][column + 1];
+                    String thirdLetter = allCharactersSeperated[row + 2][column + 2];
+                    String fourthLetter = allCharactersSeperated[row + 3][column + 3];
+                    String word = firstLetter + secondLetter + thirdLetter + fourthLetter;
+                    if (word.equals("XMAS"))
+                        goodCount++;
+                } catch (Exception e) {
+                    goodCount += 0;
+                }
+
+                // CHECK UP-LEFT
+                try {
+                    String firstLetter = allCharactersSeperated[row][column];
+                    String secondLetter = allCharactersSeperated[row - 1][column - 1];
+                    String thirdLetter = allCharactersSeperated[row - 2][column - 2];
+                    String fourthLetter = allCharactersSeperated[row - 3][column - 3];
+                    String word = firstLetter + secondLetter + thirdLetter + fourthLetter;
+                    if (word.equals("XMAS"))
+                        goodCount++;
+                } catch (Exception e) {
+                    goodCount += 0;
+                }
+
+                // CHECK DOWN-LEFT
+                try {
+                    String firstLetter = allCharactersSeperated[row][column];
+                    String secondLetter = allCharactersSeperated[row + 1][column - 1];
+                    String thirdLetter = allCharactersSeperated[row + 2][column - 2];
+                    String fourthLetter = allCharactersSeperated[row + 3][column - 3];
+                    String word = firstLetter + secondLetter + thirdLetter + fourthLetter;
+                    if (word.equals("XMAS"))
+                        goodCount++;
+                } catch (Exception e) {
+                    goodCount += 0;
+                }
+
+
+
 
 
 
@@ -122,6 +176,8 @@ public class Day4 {
 
             }
         }
+
+        return goodCount;
 
 
 
