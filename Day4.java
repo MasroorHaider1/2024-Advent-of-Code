@@ -210,78 +210,58 @@ public class Day4 {
 
 
 
-
     public static Integer getAnswer2(ArrayList<String> fileData) {
-        int totalSum=0;
+        int totalSum = 0;
 
+        int rows = fileData.size();
+        int columns = fileData.get(0).length();
+        String[][] allCharactersSeperated = new String[rows][columns];
 
-        int rows=fileData.size();
-        int columns=fileData.get(0).length();
-        String[][]allCharactersSeperated=new String[rows][columns];
-
-        //every row
+        // fill grid in like last time
         for (int row = 0; row < allCharactersSeperated.length; row++) {
-            //go down each column spot per row
             for (int column = 0; column < allCharactersSeperated[0].length; column++) {
-
-                //now each spot is a string char in the arrayList is in a spot
-                allCharactersSeperated[row][column] = fileData.get(row).substring(column, column +1);
+                allCharactersSeperated[row][column] = fileData.get(row).substring(column, column + 1);
             }
         }
 
-
-        // x shape search
-
-
-        for (int row = 0; row < allCharactersSeperated.length; row++) {
-            //go down each column spot per row
-            for (int column = 0; column < allCharactersSeperated[0].length; column++) {
-                //I HAVE TO CHECK NOT SURE, MAYBE 3 lines minimally needed
-
+        // Check  X patten
+        for (int row = 1; row < allCharactersSeperated.length - 1; row++) {
+            for (int column = 1; column < allCharactersSeperated[0].length - 1; column++) {
                 try {
-                    String centerLetter = allCharactersSeperated[row][column];
+                    // check if center is a
+                    if (!allCharactersSeperated[row][column].equals("A")) {
+                        continue;
+                    }
 
-
-                    String firstLetterLeft = allCharactersSeperated[row-1][column-1];
-                    String thirdLetterLeft = allCharactersSeperated[row+1][column+1];
-
-                    String firstLetterRight = allCharactersSeperated[row+1][column-1];
-                    String thirdLetterRight = allCharactersSeperated[row-1][column+1];
-
-
-
-
-
-
-                   String wordRight=firstLetterRight+centerLetter+thirdLetterRight;
-                   String wordLeft=firstLetterRight+centerLetter+thirdLetterLeft;
+                    //check the "\" part of x
+                    String upLeft = allCharactersSeperated[row - 1][column - 1];
+                    String downRight = allCharactersSeperated[row + 1][column + 1];
+                    String firstDiagonal = upLeft + "A" + downRight;
 
 
 
+                    // Check the "/" part of x
+                    String upRight = allCharactersSeperated[row - 1][column + 1];
+                    String downLeft = allCharactersSeperated[row + 1][column - 1];
+                    String secondDiagonal = upRight + "A" + downLeft;
 
-                    if (     (wordRight.equals("MAS")&& wordLeft.equals("MAS")) || (wordRight.equals("SAM")&& wordLeft.equals("SAM")) )
+                    // check both scenarios
+                    if ((firstDiagonal.equals("MAS") || firstDiagonal.equals("SAM")) &&
+                            (secondDiagonal.equals("MAS") || secondDiagonal.equals("SAM"))) {
                         totalSum++;
+                    }
 
+
+                } catch (Exception e) {
+                    // skip
                 }
-                catch (Exception e) {
-                    totalSum+=0;
-                }
-
-
-
-
-
-
-
-
-
-
-
-
             }
         }
-        return totalSum; // Return the total sum of x shapes found
+
+        return totalSum; //return total
     }
+
+
 
 
 
