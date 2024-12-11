@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class day5 {
@@ -12,11 +11,14 @@ public class day5 {
 
     public static int getAnswer1(ArrayList<String> fileData) {
         // the input looks like 2d arrays so I have to make 2d arrays and not just one array
-        List<int[]> ruleList = new ArrayList<>();
-        List<int[]> unsortedPageList = new ArrayList<>();
+        ArrayList<int[]> ruleList = new ArrayList<>();
+        ArrayList<int[]> unsortedPageList = new ArrayList<>();
+        ArrayList<int[]> passedRulePageList = new ArrayList<>();
 
         int position = 0;
 
+
+        //[[x,y],[x2,y2]
         //while every line has | in it
         while (fileData.get(position).contains("|")) {
             String[] stringSplitLineList = fileData.get(position).split("\\|");
@@ -29,7 +31,7 @@ public class day5 {
         }
 
 
-
+        //[[a,b,c,d],[a2,b2,c2,d2]]
         // while every line has a comma in it, add each row with an array of nummbers in it THIS IS AFTER THE POSITION IS FINALIZED
         for (int i = position; i < fileData.size(); i++) {
 
@@ -45,40 +47,99 @@ public class day5 {
         }
 
 
+        //check if it passes the rule check,NO NEED TO SORT IT OUT:
+
+        // check every unsortedRuleList
+        for(int i=0;i<unsortedPageList.size();i++ ){
+            boolean listPassed=true;
+
+
+            //for every list, we need to check each spot
+            for (int x=0; x < (unsortedPageList.get(i)).length ;x++){
+                //now I have to check each rule, and confirm it. if it is not then no add, or else add
+
+                //loop through each rule list:
+                for(int y=0;y<ruleList.size();y++){
+                    //make temporary variables
+                    int lessThanPlaceInList=ruleList.get(y)[0];
+                    int greaterThanPlaceInList=ruleList.get(y)[1];
+                    int  currentSpot=unsortedPageList.get(i)[x];
+
+                    if(currentSpot!=lessThanPlaceInList||currentSpot!=greaterThanPlaceInList){
+                        listPassed=true;
+                    }else{
+                        //NOW ACTUALLY CHECK THE RULE
+
+
+                        //if statement if the current spot is a greaterThan placelist and check if it is grater then the lessthan place list, or else false
+
+                        //if statement is a less than spot, check if it is less than the grater spot, or else false
+
+
+
+                    }
+
+
+
+
+                }
 
 
 
 
 
 
-    //get the middle of each line, it is odd
-    public static int findMiddlePage(int[] update) {
-        return update[update.length / 2];
-    }
-
-
-
-
-
-
-
-
-
-
-    public static ArrayList<String> getFileData(String fileName) {
-        ArrayList<String> fileData = new ArrayList<>();
-        try {
-            File f = new File(fileName);
-            Scanner s = new Scanner(f);
-            while (s.hasNextLine()) {
-                String line = s.nextLine();
-                if (!line.isEmpty())
-                    fileData.add(line);
             }
-            s.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + fileName);
         }
-        return fileData;
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public static ArrayList<String> getFileData(String fileName) {
+            ArrayList<String> fileData = new ArrayList<>();
+            try {
+                File f = new File(fileName);
+                Scanner s = new Scanner(f);
+                while (s.hasNextLine()) {
+                    String line = s.nextLine();
+                    if (!line.isEmpty())
+                        fileData.add(line);
+                }
+                s.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + fileName);
+            }
+            return fileData;
+        }
+
+
+
+
+
+
     }
-}
