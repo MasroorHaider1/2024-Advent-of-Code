@@ -53,7 +53,6 @@ public class day5 {
         for(int i=0;i<unsortedPageList.size();i++ ){
             boolean listPassed=true;
 
-
             //for every list, we need to check each spot
             for (int x=0; x < (unsortedPageList.get(i)).length ;x++){
                 //now I have to check each rule, and confirm it. if it is not then no add, or else add
@@ -64,82 +63,71 @@ public class day5 {
                     int lessThanPlaceInList=ruleList.get(y)[0];
                     int greaterThanPlaceInList=ruleList.get(y)[1];
                     int  currentSpot=unsortedPageList.get(i)[x];
-
                     if(currentSpot!=lessThanPlaceInList||currentSpot!=greaterThanPlaceInList){
-                        listPassed=true;
+                        continue;
                     }else{
                         //NOW ACTUALLY CHECK THE RULE
-
-
-                        //if statement if the current spot is a greaterThan placelist and check if it is grater then the lessthan place list, or else false
-
-                        //if statement is a less than spot, check if it is less than the grater spot, or else false
-
-
-
+                        if(currentSpot==lessThanPlaceInList){
+                            //if statement if the current spot is a greaterThan placelist and check if it is grater then the lessthan place list, or else false
+                            if(unsortedPageList.indexOf(currentSpot)<unsortedPageList.indexOf(greaterThanPlaceInList)){
+                                listPassed=true;
+                            }else{
+                                listPassed=false;
+                                continue;
+                            }
+                        }else{
+                            //if statement is a less than spot, check if it is less than the grater spot, or else false
+                            if(unsortedPageList.indexOf(currentSpot)>unsortedPageList.indexOf(lessThanPlaceInList)){
+                                listPassed=true;
+                            }else{
+                                listPassed=false;
+                                continue;
+                            }
+                        }
                     }
-
-
-
-
+                    if(listPassed==true){
+                        passedRulePageList.add(unsortedPageList.get(i));
+                    }
                 }
 
-
-
-
-
-
             }
-        }
-
-
-
-
-
-
-
-
 
         }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public static ArrayList<String> getFileData(String fileName) {
-            ArrayList<String> fileData = new ArrayList<>();
-            try {
-                File f = new File(fileName);
-                Scanner s = new Scanner(f);
-                while (s.hasNextLine()) {
-                    String line = s.nextLine();
-                    if (!line.isEmpty())
-                        fileData.add(line);
-                }
-                s.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + fileName);
-            }
-            return fileData;
+        int middleValues=0;
+        for(int i=0;i<passedRulePageList.size();i++){
+            middleValues+=  passedRulePageList.get(i)[(passedRulePageList.get(i).length)/2];
         }
-
-
-
-
-
-
+        return middleValues;
     }
+
+
+
+
+    
+
+    public static ArrayList<String> getFileData(String fileName) {
+        ArrayList<String> fileData = new ArrayList<>();
+        try {
+            File f = new File(fileName);
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                String line = s.nextLine();
+                if (!line.isEmpty())
+                    fileData.add(line);
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + fileName);
+        }
+        return fileData;
+    }
+
+
+
+
+
+
+}
