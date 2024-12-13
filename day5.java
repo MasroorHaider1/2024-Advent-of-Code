@@ -47,10 +47,18 @@ public class day5 {
         }
 
 
+
+
+
+
+
+
         //check if it passes the rule check,NO NEED TO SORT IT OUT:
 
         // check every unsortedRuleList
         for(int i=0;i<unsortedPageList.size();i++ ){
+
+            //inital state of being true
             boolean listPassed=true;
 
             //for every list, we need to check each spot
@@ -66,8 +74,9 @@ public class day5 {
                     if(currentSpot!=lessThanPlaceInList||currentSpot!=greaterThanPlaceInList){
                         continue;
                     }else{
+
                         //NOW ACTUALLY CHECK THE RULE
-                        if(currentSpot==lessThanPlaceInList){
+                        if(currentSpot==(lessThanPlaceInList) && !listPassed){
                             //if statement if the current spot is a greaterThan placelist and check if it is grater then the lessthan place list, or else false
                             if(unsortedPageList.indexOf(currentSpot)<unsortedPageList.indexOf(greaterThanPlaceInList)){
                                 listPassed=true;
@@ -77,7 +86,7 @@ public class day5 {
                             }
                         }else{
                             //if statement is a less than spot, check if it is less than the grater spot, or else false
-                            if(unsortedPageList.indexOf(currentSpot)>unsortedPageList.indexOf(lessThanPlaceInList)){
+                            if(unsortedPageList.indexOf(currentSpot)>unsortedPageList.indexOf(lessThanPlaceInList)&&listPassed==false){
                                 listPassed=true;
                             }else{
                                 listPassed=false;
@@ -106,7 +115,7 @@ public class day5 {
 
 
 
-    
+
 
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<>();
