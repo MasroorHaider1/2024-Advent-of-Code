@@ -16,7 +16,7 @@ public class day5 {
 
         int position = 0;
 
-        // Parse the page ordering rules
+        // add the page ordering rules
         while (fileData.get(position).contains("|")) {
             String[] stringSplitLineList = fileData.get(position).split("\\|");
 
@@ -26,7 +26,7 @@ public class day5 {
             position++;
         }
 
-        // Parse the update pages
+        // add the update pages
         for (int i = position; i < fileData.size(); i++) {
             String[] stringSplitLineList = fileData.get(i).split(",");
             int[] update = new int[stringSplitLineList.length];
@@ -74,7 +74,7 @@ public class day5 {
         return middleValues;
     }
 
-    // Check if the array contains both pages
+    // Check if the array contains both page
     public static boolean containsPages(int[] array, int lessThan, int greaterThan) {
         boolean foundLessThan = false;
         boolean foundGreaterThan = false;
@@ -101,7 +101,7 @@ public class day5 {
 
 
 
-    // Check if the order is valid according to the rule
+    // Check if the order is valid
     public static boolean isValidOrder(int[] array, int lessThan, int greaterThan) {
         int indexLessThan = -1;
         int indexGreaterThan = -1;
