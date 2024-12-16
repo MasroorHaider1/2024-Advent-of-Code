@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class day5 {
@@ -13,6 +14,7 @@ public class day5 {
         ArrayList<int[]> ruleList = new ArrayList<>();
         ArrayList<int[]> unsortedPageList = new ArrayList<>();
         ArrayList<int[]> passedRulePageList = new ArrayList<>();
+        ArrayList<int[]> notPassedRulePageList=new ArrayList<>();
 
         int position = 0;
 
@@ -50,9 +52,10 @@ public class day5 {
                     int lessThan = ruleList.get(k)[0];
                     int greaterThan = ruleList.get(k)[1];
 
-                    // Check if the current page violates any rules
+                    // Check if the current page violates any rules and add it to not passed list
                     if (containsPages(currentUpdate, lessThan, greaterThan) && !isValidOrder(currentUpdate, lessThan, greaterThan)) {
                         listPassed = false;
+                        notPassedRulePageList.add(currentUpdate);
                         break;
                     }
                 }
@@ -74,6 +77,15 @@ public class day5 {
         return middleValues;
     }
 
+
+
+    //get the incorrect lists sorted and then add the middle values:
+
+    //if the greater than place is less than the actual, just swap places.
+
+
+
+
     // Check if the array contains both page
     public static boolean containsPages(int[] array, int lessThan, int greaterThan) {
         boolean foundLessThan = false;
@@ -92,15 +104,6 @@ public class day5 {
         return false;
     }
 
-
-
-
-
-
-
-
-
-
     // Check if the order is valid
     public static boolean isValidOrder(int[] array, int lessThan, int greaterThan) {
         int indexLessThan = -1;
@@ -115,6 +118,37 @@ public class day5 {
         }
         return indexLessThan < indexGreaterThan;
     }
+
+
+    // Check if the order is valid and fix the list
+    public static void isValidOrderFromWrongList(int[] array, int lessThan, int greaterThan) {
+        int indexLessThan = -1;
+        int indexGreaterThan = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == lessThan){
+                indexLessThan = i;
+            }
+            if (array[i] == greaterThan) {
+                indexGreaterThan = i;
+            }
+        }
+        boolean status=indexLessThan > indexGreaterThan;
+
+        if(status){
+            //NOW SWITCH PLACES
+
+            Collections.swap(array, array.//(indexLessThan), array.//(indexGreaterThan));
+
+        }
+
+    }
+
+
+
+
+
+
+
 
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<>();
