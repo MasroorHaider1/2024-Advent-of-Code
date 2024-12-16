@@ -37,6 +37,9 @@ public class day5 {
             unsortedPageList.add(update);
         }
 
+
+
+
         // Check if each update follows the rules
         for (int i = 0; i < unsortedPageList.size(); i++) {
             boolean listPassed = true;
@@ -76,20 +79,39 @@ public class day5 {
         boolean foundLessThan = false;
         boolean foundGreaterThan = false;
         for (int value : array) {
-            if (value == lessThan) foundLessThan = true;
-            if (value == greaterThan) foundGreaterThan = true;
-            if (foundLessThan && foundGreaterThan) return true;
+            if (value == lessThan) {
+                foundLessThan = true;
+            }
+            if (value == greaterThan){
+                foundGreaterThan = true;
+            }
+            if (foundLessThan && foundGreaterThan){
+                return true;
+            }
         }
         return false;
     }
+
+
+
+
+
+
+
+
+
 
     // Check if the order is valid according to the rule
     public static boolean isValidOrder(int[] array, int lessThan, int greaterThan) {
         int indexLessThan = -1;
         int indexGreaterThan = -1;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == lessThan) indexLessThan = i;
-            if (array[i] == greaterThan) indexGreaterThan = i;
+            if (array[i] == lessThan){
+                indexLessThan = i;
+            }
+            if (array[i] == greaterThan) {
+                indexGreaterThan = i;
+            }
         }
         return indexLessThan < indexGreaterThan;
     }
