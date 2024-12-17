@@ -101,7 +101,7 @@ public class day5 {
             unsortedPageList.add(update);
         }
 
-        // Check if each update does  not follow the rules
+        // Check if each update does not follow the rules
         for (int[] currentUpdate : unsortedPageList) {
             boolean listPassed = true;
             for (int[] rule : ruleList) {
@@ -121,15 +121,47 @@ public class day5 {
         // Sort incorrectly ordered lists and calculate middle values
         int middleValuesSum = 0;
         for (int[] incorrectUpdate : notPassedRulePageList) {
-           
+            boolean swapped;
+            do {
+                swapped = false;
+                for (int[] rule : ruleList) {
+                    int lessThan = rule[0];
+                    int greaterThan = rule[1];
+
+                    // Find places of lessThan and greaterThan in the array
+                    int indexLessThan = -1;
+                    int indexGreaterThan = -1;
+
+                    for (int i = 0; i < incorrectUpdate.length; i++) {
+                        if (incorrectUpdate[i] == lessThan) {
+                            indexLessThan = i;
+                        }
+                        if (incorrectUpdate[i] == greaterThan) {
+                            indexGreaterThan = i;
+                        }
+                    }
+
+                    // Swap if the order is incorrect
+                    if (indexLessThan != -1 && indexGreaterThan != -1 && indexLessThan > indexGreaterThan) {
+                        int temp = incorrectUpdate[indexLessThan];
+                        incorrectUpdate[indexLessThan] = incorrectUpdate[indexGreaterThan];
+                        incorrectUpdate[indexGreaterThan] = temp;
+                        swapped = true; // Indicate a swap occurred
+                    }
+                }
+            } while (swapped); // Repeat until no more swaps are needed
+
+            // Add the middle value of the corrected list to the sum
             middleValuesSum += incorrectUpdate[incorrectUpdate.length / 2];
-
-
-
         }
 
         return middleValuesSum;
     }
+
+
+
+
+
 
 
 
@@ -175,4 +207,3 @@ public class day5 {
         return fileData;
     }
 }
-
